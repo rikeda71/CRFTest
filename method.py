@@ -1,10 +1,11 @@
+#coding:utf-8
 def is_hiragana(ch):
     return 0x3040 <= ord(ch) <= 0x309F
 
 def is_katakana(ch):
     return 0x30A0 <= ord(ch) <= 0x30FF
 
-# 文字の種類を返す
+#文字の種類を返す
 def get_character_type(ch):
     if ch.isspace():
         return 'ZSPACE'

@@ -1,15 +1,14 @@
+#coding:utf-8
+# method
 import method
-from itertools import chain
+import Reader
+import report
+#crf
 import pycrfsuite
-import scipy
 import sklearn
-from sklearn.metrics import classification_report
-from sklearn.preprocessing import LabelBinarizer
-import codecs
-
 
 if __name__ == '__main__':
-    c = CorpusReader.CorpusReader('hironsan.txt')
+    c = Reader.CorpusReader('hironsan.txt')
     train_sents = c.iob_sents('train')
     test_sents = c.iob_sents('test')
     #print(test_sents[0])
@@ -19,7 +18,7 @@ if __name__ == '__main__':
     X_test = [method.sent2features(s) for s in test_sents]
     y_test = [method.sent2labels(s) for s in test_sents]
 
-    iner = pycrfsuite.Trainer(verbose=False)
+    trainer = pycrfsuite.Trainer(verbose=False)
 
     for xseq, yseq in zip(X_train, y_train):
         trainer.append(xseq, yseq)
@@ -33,3 +32,17 @@ if __name__ == '__main__':
     })
     
     trainer.train('model.crfsuite')
+    
+    # テストデータの予測
+    tagger = pycrfsuite.Tagger()
+    tagger.open('model.crfsuite')
+
+    # タグ付け
+    example_sent = test_sents[0]
+    print(' '.join(method.sent2tokens(example_sent)))
+    print('Predicted:', ' '.join(tagger.tag(method.sent2features(example_sent))))
+    print('Correct:  ', ' '.join(method.sent2labels(example_sent)))
+    
+    # 評価
+    y_pred = [tagger.tag(xseq) for xseq in X_test]
+    print(report.bio_classification_report(y_test, y_pred))
