@@ -16,12 +16,15 @@ class CorpusReader(object):
         train_num = int(len(sents) * 0.9)
         self.__train_sents = sents[:train_num]
         self.__test_sents = sents[train_num:]
+        self.__all_sents = sents
 
     def iob_sents(self, name):
         if name == 'train':
             return self.__train_sents
         elif name == 'test':
             return self.__test_sents
+        elif name == 'all':
+            return self.__all_sents
         else:
             return None
 
