@@ -1,0 +1,4 @@
+all.txt
+__pycache__/
+.python-version
+.cache/

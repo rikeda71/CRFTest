@@ -4,19 +4,22 @@ import method
 import Reader
 import report
 #crf
-import pycrfsuite # sklearn_crfsuiteが存在
+#import pycrfsuite # sklearn_crfsuiteが存在
+import sklearn_crfsuite
 import sklearn
 # closs-validation
 from sklearn.cross_validation import KFold
 
 if __name__ == '__main__':
-    c = Reader.CorpusReader('hironsan.txt')
+    #c = Reader.CorpusReader('hironsan.txt')
+    c = Reader.CorpusReader('all.txt')
     all_sents = c.iob_sents('all')
-    
+
     k_fold = KFold(n=len(all_sents), n_folds = 10, shuffle=True)
     #K_fold = KFold(n=len(all_sents), n_folds = 10, shuffle=False)
     for train, test in k_fold:
-        trainer = pycrfsuite.Trainer(verbose=False)
+        #trainer = pycrfsuite.Trainer(verbose=False)
+        trainer = sklearn_crfsuite.Trainer(verbose=False)
         X_train = [method.sent2features(all_sents[s]) for s in train]
         y_train = [method.sent2labels(all_sents[s]) for s in train]
         #X_test = [method.sent2features(all_sents[s]) for s in test]
