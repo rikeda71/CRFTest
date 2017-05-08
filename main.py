@@ -4,9 +4,9 @@ import method
 import Reader
 import report
 #crf
-#import pycrfsuite # sklearn_crfsuiteが存在
-import sklearn_crfsuite
-import sklearn
+import pycrfsuite # sklearn_crfsuiteが存在
+#import sklearn_crfsuite
+#import sklearn
 # closs-validation
 from sklearn.cross_validation import KFold
 
@@ -18,8 +18,8 @@ if __name__ == '__main__':
     k_fold = KFold(n=len(all_sents), n_folds = 10, shuffle=True)
     #K_fold = KFold(n=len(all_sents), n_folds = 10, shuffle=False)
     for train, test in k_fold:
-        #trainer = pycrfsuite.Trainer(verbose=False)
-        trainer = sklearn_crfsuite.Trainer(verbose=False)
+        trainer = pycrfsuite.Trainer(verbose=False)
+        #trainer = sklearn_crfsuite.Trainer(verbose=False)
         X_train = [method.sent2features(all_sents[s]) for s in train]
         y_train = [method.sent2labels(all_sents[s]) for s in train]
         #X_test = [method.sent2features(all_sents[s]) for s in test]
@@ -35,7 +35,6 @@ if __name__ == '__main__':
             # include transitions that are possible, but not observed
             'feature.possible_transitions': True
         })
-
         trainer.train('model.crfsuite')
 
         # 学習データの呼び出し

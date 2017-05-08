@@ -119,8 +119,8 @@ def word2prediction(sent, i, tag):
         features.extend([
             '-2:word=' + word2,
             '-2:type=' + chtype2,
-            '-2:postag=' + postag2
-            #'-2:iobtag=' + iobtag2,
+            '-2:postag=' + postag2,
+            '-2:iobtag=' + iobtag2,
         ])
     else:
         features.append('BOS')
@@ -133,8 +133,8 @@ def word2prediction(sent, i, tag):
         features.extend([
             '-1:word=' + word1,
             '-1:type=' + chtype1,
-            '-1:postag=' + postag1
-            #'-1:iobtag=' + iobtag1,
+            '-1:postag=' + postag1,
+            '-1:iobtag=' + iobtag1,
         ])
     else:
         features.append('BOS')
