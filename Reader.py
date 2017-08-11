@@ -11,8 +11,7 @@ class CorpusReader(object):
                     sents.append(sent)
                     sent = []
                     continue
-                #morph_info = line.strip().split('\t')
-                morph_info = line.strip().split(',')
+                morph_info = line.strip().split('\t')
                 sent.append(morph_info)
         train_num = int(len(sents) * 0.9)
         self.__train_sents = sents[:train_num]

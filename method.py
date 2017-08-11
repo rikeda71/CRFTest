@@ -50,12 +50,10 @@ def word2features(sent, i):
         word2 = sent[i-2][0]
         chtype2 = get_character_types(sent[i-2][0])
         postag2 = extract_pos_with_subtype(sent[i-2])
-        iobtag2 = sent[i-2][-1]
         features.extend([
             '-2:word=' + word2,
             '-2:type=' + chtype2,
             '-2:postag=' + postag2,
-            '-2:iobtag=' + iobtag2,
         ])
     else:
         features.append('BOS')
@@ -69,7 +67,6 @@ def word2features(sent, i):
             '-1:word=' + word1,
             '-1:type=' + chtype1,
             '-1:postag=' + postag1,
-            '-1:iobtag=' + iobtag1,
         ])
     else:
         features.append('BOS')
